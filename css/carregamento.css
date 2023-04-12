@@ -1,0 +1,99 @@
+body{
+    background-color: rgb(0, 0, 0);
+}
+.centralizar {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .centralizar > div {
+    margin: 15px 0;
+  }
+  .logo-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .logo{
+    width: 29%; 
+    height: auto; /* mantém a proporção da imagem */  
+    display: block; 
+    margin-bottom: 10%; /* margem para distanciar da barra de carregamento*/
+    margin-left: auto; /* centralizar */
+    margin-right: auto; /* centralizar */
+  }
+  .letra:not(:last-child) {
+    margin-right: -80%; /* ajusta a margem direita de todos os elementos, exceto o último */
+  }
+  .letra {
+    animation: color-change 4s linear forwards;
+    filter: brightness(0) saturate(0%);
+  }
+  /* chaves de animação */
+  @keyframes color-change {
+    0% { filter: brightness(0) saturate(0%) hue-rotate(0deg);}
+    15% { filter: brightness(100%) saturate(100%) hue-rotate(0deg);}
+  }
+  
+  /* estilos para cada letra */
+  .u {animation-delay: 0s;}
+  .n {animation-delay: 0.3s;}
+  .i {animation-delay: 0.6s;}
+  .v {animation-delay: 0.9s;}
+  .a1 {animation-delay: 1.2s;}
+  .g {animation-delay: 1.5s;}
+  .a2 {animation-delay: 1.8s;}
+  .s {animation-delay: 2.1s;}
+  
+
+  .barra-de-carregamento {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    height: 20px;
+    background-image: linear-gradient(to right, #000000, #013570, #00aeff);
+    box-shadow: inset 0 1px 5px rgba(0, 208, 255, 0.9), inset -5px -1px 5px rgba(0, 208, 255, 0.9);
+    animation: carregar 3s linear forwards;
+    z-index: 1;
+  }
+    
+
+  /* abaixo coloco 2 valores, width e left: onde width será a largura da minha barra de carregamento e left é a margem*/
+  @keyframes carregar {
+    from {
+      width: 0;
+      left: 30%;
+    }
+    to {
+      width: 40%;
+      left: 30%;
+    }
+  }
+  @media screen and (max-width: 999px){
+
+    .logo{
+      width: 59%; /* define a largura da imagem em 300 pixels */
+      height: auto; /* mantém a proporção da imagem */  
+      display: block; 
+      margin-bottom: 10%; /* margem para distanciar da barra de carregamento*/
+      margin-left: auto; /* centralizar */
+      margin-right: auto; /* centralizar */
+    }
+    .letra:not(:last-child) {
+      margin-right: -80%; /* ajusta a margem direita de todos os elementos, exceto o último */
+    }
+    @keyframes carregar {
+      from {
+        width: 0;
+        left: 19.5%;
+      }
+      to {
+        width: 61%;
+        left: 19.5%;
+      }
+    }
+}

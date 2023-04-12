@@ -1,0 +1,284 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.container-form-elements{
+    display: flex;
+    flex-direction: row;
+}
+.body-form{
+    background-color: white;
+    width: 33%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centraliza verticalmente*/
+    align-items: center; /* centraliza horizontalmente*/
+    z-index: 2;
+
+}
+.logo{
+    width: 20%;
+    height: auto; /* mantém a proporção da imagem */  
+    position: absolute;
+    top: 10%;
+}
+.logo-login{
+    width: 20%;
+    height: auto; /* mantém a proporção da imagem */  
+    position: absolute;
+    top: 25%;
+}
+.botao1{
+    background-color: #007bff;
+    width: 35vh;
+    height: 5vh;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    border-radius: 8px;
+}
+.botao1:hover{
+    background-color: #014b99;
+}
+.botao2{
+    background-color: #014b99;
+    width: 35vh;
+    height: 5vh;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    border-radius: 8px;
+}
+.botao2:hover{
+    background-color: #007bff;
+}
+h1{
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color:#001b39;
+}
+.body-text{
+    background-image: linear-gradient(to bottom left, #001b39, #004da4);
+    width: 67%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: top; /* centraliza verticalmente*/
+    align-items: right; /* centraliza horizontalmente*/
+    text-align: center;
+}
+h2{
+    font-family: 'Raleway', sans-serif;
+    font-size: 300%;
+    color:#ffffff;
+    margin-top: 25%;
+}
+h3{
+    font-family: 'Raleway', sans-serif;
+    font-size: 300%;
+    color:#ffffff;
+    margin-top: 1%;
+}
+.logo2{
+    width: 8%; /* define a largura da imagem em 300 pixels */
+    height: auto; /* mantém a proporção da imagem */  
+    position: absolute;
+    top: 25%;
+    margin-left: 12%;
+}
+h4{
+    font-family: 'Raleway Dots', cursive;
+    font-size: 150%;
+    color:#ffffff;
+    margin-top: 6%;
+    margin-left: 40%;
+}
+.imagem-fundo{
+    position: fixed;
+    bottom: 0;
+    width: 66%;
+    margin-left: -1%;
+    margin-top: 6.1%;
+    height: auto;
+    z-index: 1;
+}
+.imagem-fundo2{
+    position: absolute;
+    width: 66%;
+    margin-left: 1%;
+    margin-top: -1%;
+    height: auto;
+    z-index: 1;
+}
+/* login */
+.imagem-fundo3{
+    position: fixed;
+    bottom: 0;
+    width: auto;
+    margin-left: -1%;
+    margin-top: 6.1%;
+    height: auto;
+    z-index: 1;
+}
+
+/* Formulario de cadastro*/
+.espaco{
+    width: 35vh;
+    height: 5vh;
+    background-color: transparent;
+    margin-top: 15%;
+}
+.label1{
+    text-align: left;
+    margin-bottom: 1%;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    color:#001b39;
+}
+.tipo-usuario{
+    font-family: 'Raleway', sans-serif;
+    width: 35vh;
+    height: 5vh;
+    background-color: #edeaea;
+    cursor: pointer;
+    border-radius: 8px;
+    text-indent: 5%;
+}
+select:focus{
+    outline: none; /* opcional para remover a borda de destaque */
+}
+.input-text{
+    width: 35vh;
+    height: 5vh;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    color: black;
+    text-indent: 5%;
+    background-color: #edeaea;
+    border-radius: 8px;
+}
+.cnpj{
+    width: 35vh;
+    height: 5vh;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    color: black;
+    text-indent: 5%;
+    background-color: #edeaea;
+    border-radius: 8px;
+}
+.data_nascimento{
+    width: 35vh;
+    height: 5vh;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #000000;
+    font-size: 16px;
+    padding: 12px 20px;
+}
+.submit1{
+    background-color: #014b99;
+    width: 35vh;
+    height: 5vh;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    border-radius: 8px;
+
+}
+
+/* ajuste de telas */
+@media screen and (max-height: 500px){
+    .logo{
+        width: 150px; /* define a largura da imagem em 300 pixels */
+        height: auto; /* mantém a proporção da imagem */  
+        position: absolute;
+        top: 15%;
+    }
+}
+@media screen and (max-width: 500px){
+    .botao1{
+        background-color: #007bff;
+        width: 45vh;
+        height: 6vh;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-family: 'Raleway', sans-serif;
+        font-size: 18px;
+        border-radius: 8px;
+    }
+    .botao2{
+        background-color: #014b99;
+        width: 45vh;
+        height: 6vh;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-family: 'Raleway', sans-serif;
+        font-size: 18px;
+        border-radius: 8px;
+    }
+}
+@media screen and (max-width: 800px){
+    .logo-login{
+        width: 40%; 
+        height: auto; /* mantém a proporção da imagem */  
+        position: absolute;
+        top: 25%;
+    }
+    .logo{
+        width: 40%;
+        height: auto; /* mantém a proporção da imagem */  
+        position: absolute;
+        top: 10%;
+    }
+}
+@media screen and (max-width: 1100px){
+    .body-form{
+        background-color: white;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* centraliza verticalmente*/
+        align-items: center; /* centraliza horizontalmente*/
+        z-index: 2;
+    }
+    .body-text{
+        display: none;
+    } 
+
+}
+@media screen and (max-width: 1366px){
+    h2{
+        font-family: 'Raleway', sans-serif;
+        font-size: 200%;
+        color:#ffffff;
+        margin-top: 25%;
+    }
+    h3{
+        font-family: 'Raleway', sans-serif;
+        font-size: 200%;
+        color:#ffffff;
+        margin-top: 1%;
+    }
+    h4{
+        font-family: 'Raleway Dots', cursive;
+        font-size: 100%;
+        color:#ffffff;
+        margin-top: 6%;
+        margin-left: 40%;
+    }
+
+}

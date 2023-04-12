@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="../../css/estilo.css" media="screen"/>
+
+    
+    <!-- FONTES DAS LETRAS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <style> @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap'); </style>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap" rel="stylesheet">
+
+    <title>Cadastro</title>
+</head>
+<body>
+<form action="/univagas/paginas/cadastro/inserir.php" method="POST">
+    <div class="container-form-elements">
+        <div class="body-form">
+            <img src="../../imagens/logo.png" class="logo">
+            <div class="espaco"></div>
+
+            <!-- TIPO DE PERFIL QUE MUDA O FORMULARIO DE ACORDO COM O QUE O USUARIO ESCOLHE-->
+            <div class="/">
+                <label for="tipo-usuario" class="label1">Escolha o seu tipo de usuário</label><br><br>
+                <select id="tipo-usuario"class="tipo-usuario" name="tipo_usuario">
+                    <option value="candidato">Candidato</option>
+                    <option value="empresa">Empresa</option>
+                </select><br><br>
+            </div>
+            
+            <!-- Opções de formulário para a empresa -->
+            <div id="empresa-form">
+                <input type="text" class="input-text" name="nome_empresa" placeholder="Nome da empresa"><br><br>
+                <input type="text" class="input-text" name="email_empresa" placeholder="E-mail da empresa"><br><br>
+                <input type="password" class="input-text" name="senha_empresa" placeholder="Senha"><br><br>
+
+
+                <!-- SELECIONA O ESTADO-->
+                <select id="estado" class="tipo-usuario" name="estado">
+                    <option value="">Selecione um estado</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select><br><br>
+
+
+                <!-- SELECIONA A CIDADE-->
+                <select id="cidade" class="tipo-usuario"  name="cidade">
+                    <option value="">Selecione um estado primeiro</option>
+                </select><br><br>
+
+
+            </div>
+
+
+            <!-- Opções de formulário para o candidato -->
+            <div id="candidato-form">
+                <input type="text" class="input-text" name="nome_candidato" placeholder="Nome do candidato"><br><br>
+                <input type="text" class="input-text" name="matricula" placeholder="ID da Matricula do candidato"><br><br>
+                <input type="text" class="input-text" name="email_candidato" placeholder="E-mail do candidato"><br><br>
+                <input type="password" class="input-text" name="senha_candidato" placeholder="Senha"><br><br>
+            
+
+                <!-- SELECIONA O ESTADO-->
+                <select id="estado2" class="tipo-usuario" name="estado2">
+                    <option value="">Selecione um estado</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select><br><br>
+
+
+                <!-- SELECIONA A CIDADE-->
+                <select id="cidade2" class="tipo-usuario" name="cidade2">
+                    <option value="">Selecione um estado primeiro</option>
+                </select><br><br>
+
+
+                 <!-- SELECIONA O CURSO-->
+                 <select id="curso" class="tipo-usuario" name="curso">
+                    <option value="">Selecione o seu curso</option>
+                    <option value="1">Administração</option>
+                    <option value="2">Ciência da Computação</option>
+                    <option value="3">Ciências Atmosféricas</option>
+                    <option value="4">Ciências Biológicas Licenciatura</option>
+                    <option value="5">Engenharia Ambiental</option>
+                    <option value="6">Engenharia Civil</option>
+                    <option value="7">Engenharia de Bioprocessos</option>
+                    <option value="8">Engenharia de Computação</option>
+                    <option value="9">Engenharia de Controle e Automação</option>
+                    <option value="10">Engenharia de Energia</option>
+                    <option value="11">Engenharia de Materiais</option>
+                    <option value="12">Engenharia de Produção</option>
+                    <option value="13">Engenharia Elétrica</option>
+                    <option value="14">Engenharia Eletrônica</option>
+                    <option value="15">Engenharia Hídrica</option>
+                    <option value="16">Engenharia Mecânica</option>
+                    <option value="17">Engenharia Mecânica Aeronáutica</option>
+                    <option value="18">Engenharia Química</option>
+                    <option value="19">Física Bacharelado</option>
+                    <option value="20">Física Licenciatura</option>
+                    <option value="21">Matemática Bacharelado</option>
+                    <option value="22">Matemática Licenciatura</option>
+                    <option value="23">Química Bacharelado</option>
+                    <option value="24">Química Licenciatura</option>
+                    <option value="25">Sistemas de Informação</option>
+                </select><br><br>  
+            </div>
+
+
+            <!-- ENVIAR -->
+            <input type="submit" name="submit" value="Cadastrar" id="submit1" class="submit1">
+        </div>
+
+
+        <!-- IMAGENS DE FUNDO -->
+        <div class="body-text">
+            <h2>Conectando talentos</h2>
+            <h3>com oportunidades!</h3>
+            <img src="../../imagens/emprego.png" class="imagem-fundo">
+            <img src="../../imagens/emprego2.png" class="imagem-fundo2">
+        </div>
+
+    </div>
+    <!-- JAVASCRIPT -->
+    <script src="../../js/script.js"></script>
+</form>
+</body>
+</html>
