@@ -1,14 +1,14 @@
-<?php 
+<?php
 // iniciar sessao e colocar conexao
-include_once('../conexao.php');
+include_once "../conexao.php";
 session_start();
 
 // a variavel abaixo usarei dentro do <h1></h1>, para exibir mensagens de senha incorreta e outras
-$erro = 'Faça seu login no perfil de empresa!';
+$erro = "Faça seu login no perfil de empresa!";
 // empresa
-if (isset($_POST['submit'])) {
-    $email_empresa = $_POST['email_empresa'];
-    $senha_empresa = $_POST['senha_empresa'];
+if (isset($_POST["submit"])) {
+    $email_empresa = $_POST["email_empresa"];
+    $senha_empresa = $_POST["senha_empresa"];
 
     // Consulta o banco de dados para verificar se o email existe
     $consulta_senha = "SELECT senha_empresa FROM empresa WHERE email_empresa = '$email_empresa'";
@@ -16,32 +16,34 @@ if (isset($_POST['submit'])) {
     $total_regitro = mysqli_num_rows($consulta_senha_resultado);
 
     if ($total_regitro > 0) {
-        $senha_criptografada = mysqli_fetch_assoc($consulta_senha_resultado)['senha_empresa'];
+        $senha_criptografada = mysqli_fetch_assoc($consulta_senha_resultado)["senha_empresa"];
 
         // verifica se a senha digitada bate com a senha criptografada no banco de dados
         if (password_verify($senha_empresa, $senha_criptografada)) {
             // Senha está correta
-            $_SESSION['logged_in'] = true;
+            $_SESSION["logged_in"] = true;
 
             //pegar o id para usar na sessao
             $select_id = "SELECT id_empresa FROM empresa WHERE email_empresa = '$email_empresa'";
             $id_empresa_resultado = mysqli_query($conexao, $select_id);
-            $id_empresa = mysqli_fetch_assoc($id_empresa_resultado)['id_empresa'];
+            $id_empresa = mysqli_fetch_assoc($id_empresa_resultado)["id_empresa"];
 
             // importante, usaremos isso em outras páginas quando logado
-            $_SESSION['id_sessao'] = $id_empresa;
+            $_SESSION["id_sessao"] = $id_empresa;
 
-            header('Location: ../perfil/perfil_empresa.php?id='.$id_empresa.''); 
-            exit;
+            header(
+                "Location: ../perfil/perfil_empresa.php?id=" . $id_empresa . ""
+            );
+            exit();
         } else {
             // password_verify retornou falso
-            $erro = 'ERRO! senha ou e-mail incorreto.';
+            $erro = "ERRO! senha ou e-mail incorreto.";
         }
     } else {
         // se o total de registro NÃO for > 0, significa que ainda não foi cadastrado o email.
-        $erro = 'E-mail não cadastrado.';
+        $erro = "E-mail não cadastrado.";
     }
-}  
+}
 ?>
 
 
