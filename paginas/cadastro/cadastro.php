@@ -1,5 +1,4 @@
 <?php
-
 include_once "../conexao.php";
 $mensagem = "Escolha o seu tipo de usuário";
 $cor = "#001b39;";
