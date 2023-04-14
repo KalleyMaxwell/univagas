@@ -200,10 +200,7 @@ select:focus{
 /* ajuste de telas */
 @media screen and (max-height: 500px){
     .logo{
-        width: 150px; /* define a largura da imagem em 300 pixels */
-        height: auto; /* mantém a proporção da imagem */  
-        position: absolute;
-        top: 15%;
+        display: none;
     }
 }
 @media screen and (max-width: 500px){

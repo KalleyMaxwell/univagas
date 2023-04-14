@@ -1,3 +1,151 @@
+<?php
+include_once "../conexao.php";
+$mensagem = "Escolha o seu tipo de usuário";
+$cor = "#001b39;";
+$bold = "normal;";
+
+/*
+verificar se os dados foram submetidos através do método POST 
+antes de processar as informações do formulário. Isso garante 
+que apenas as informações enviadas através do formulário serão 
+processadas e ajuda a prevenir ataques maliciosos
+*/
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    //empresa
+    $nome_empresa = $_POST["nome_empresa"];
+    $email_empresa = $_POST["email_empresa"];
+    $senha_empresa = $_POST["senha_empresa"];
+    $estado = $_POST["estado"];
+    $cidade = $_POST["cidade"];
+
+    //candidato
+    $nome_candidato = $_POST["nome_candidato"];
+    $email_candidato = $_POST["email_candidato"];
+    $senha_candidato = $_POST["senha_candidato"];
+    $estado2 = $_POST["estado2"];
+    $cidade2 = $_POST["cidade2"];
+    $curso = $_POST["curso"];
+    $matricula = $_POST["matricula"];
+
+    $tipo_usuario = $_POST["tipo_usuario"];
+
+    if ($tipo_usuario == "empresa") {
+        // Verifica se todos os campos foram preenchidos
+        if (
+            !empty($nome_empresa) &&
+            !empty($email_empresa) &&
+            !empty($senha_empresa) &&
+            !empty($estado) &&
+            !empty($cidade)
+        ) {
+            // 1º Verifica se o endereço de e-mail é válido
+            if (filter_var($email_empresa, FILTER_VALIDATE_EMAIL)) {
+                // 2º verifica se a senha é forte ou não
+                if (
+                    preg_match(
+                        '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/',$senha_empresa
+                    )
+                ) {
+                    // Criptografia da senha usando bcrypt
+                    $ajuste = [
+                        "cost" => 12, // ajuste de complexidade
+                    ];
+                    $senha_criptografada = password_hash(
+                        $senha_empresa,PASSWORD_BCRYPT,$ajuste
+                    );
+
+                    // INSERIR BANCO DE DADOS
+                    $sql_insert = "INSERT INTO empresa (nome_empresa,email_empresa,senha_empresa,estado,cidade)
+                    VALUES ('$nome_empresa','$email_empresa','$senha_criptografada','$estado','$cidade')";
+                    $roda_sql = mysqli_query($conexao, $sql_insert);
+
+                    header("Location: carregando.html");
+                } else {
+                    $cor = "red;";
+                    $bold = "bold;";
+                    $mensagem = "Sua senha é muito fraca. <br> Exemplo de senha forte: <br> Aabc@123"; // Exibe uma mensagem de erro
+                }
+            } else {
+                $cor = "red;";
+                $bold = "bold;";
+                $mensagem = "Por favor, informe e-mail válido."; // Exibe uma mensagem de erro
+            }
+        } else {
+            $cor = "red;";
+            $bold = "bold;";
+            $mensagem = "Por favor, preencha todos os campos."; // Exibe uma mensagem de erro
+        }
+    } elseif ($tipo_usuario == "candidato") {
+        //formulario de envio do candidato
+
+        // Verifica se todos os campos foram preenchidos
+        if (
+            !empty($nome_candidato) &&
+            !empty($email_candidato) &&
+            !empty($senha_candidato) &&
+            !empty($estado2) &&
+            !empty($cidade2) &&
+            !empty($curso) &&
+            !empty($matricula)
+        ) {
+            // 1º Verifica se o endereço de e-mail é válido
+            if (filter_var($email_candidato, FILTER_VALIDATE_EMAIL)) {
+                // 2º verifica se a senha é forte ou não
+                if (
+                    preg_match(
+                        '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/',
+                        $senha_candidato
+                    )
+                ) {
+                    //3º por ultimo, verificamos se a matricula está com somente números
+                    if (is_numeric($matricula)) {
+                        // Criptografia da senha usando bcrypt
+                        $ajuste = [
+                            "cost" => 12, // ajuste de complexidade
+                        ];
+                        // Criptografia da senha usando bcrypt
+                        $ajuste2 = [
+                            "cost" => 12, // ajuste de complexidade
+                        ];
+                        $senha_criptografada2 = password_hash(
+                            $senha_candidato,
+                            PASSWORD_BCRYPT,
+                            $ajuste2
+                        );
+
+                        // INSERIR BANCO DE DADOS
+                        $sql_insert = "INSERT INTO candidato (matricula,curso,nome_candidato,email_candidato,senha_candidato,estado,cidade)
+                            VALUES ('$matricula','$curso','$nome_candidato','$email_candidato','$senha_criptografada2','$estado2','$cidade2')";
+                        $roda_sql = mysqli_query($conexao, $sql_insert);
+
+                        header("Location: carregando.html");
+                    } else {
+                        $cor = "red;";
+                        $bold = "bold;";
+                        $mensagem =
+                            "Informe um número <br> de matrícula válido."; // Exibe uma mensagem de erro
+                    }
+                } else {
+                    $cor = "red;";
+                    $bold = "bold;";
+                    $mensagem =
+                        "Sua senha é muito fraca. <br> Exemplo de senha forte: <br> Aabc@123"; // Exibe uma mensagem de erro
+                }
+            } else {
+                $cor = "red;";
+                $bold = "bold;";
+                $mensagem = "Por favor, informe um endereço de e-mail válido."; // Exibe uma mensagem de erro
+            }
+        } else {
+            $cor = "red;";
+            $bold = "bold;";
+            $mensagem = "Por favor, preencha todos os campos."; // Exibe uma mensagem de erro
+        }
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,15 +166,15 @@
     <title>Cadastro</title>
 </head>
 <body>
-<form action="/univagas/paginas/cadastro/inserir.php" method="POST">
+<form action="<?=$_SERVER['PHP_SELF'];?>" method="POST">
     <div class="container-form-elements">
         <div class="body-form">
             <img src="../../imagens/logo.png" class="logo">
             <div class="espaco"></div>
 
             <!-- TIPO DE PERFIL QUE MUDA O FORMULARIO DE ACORDO COM O QUE O USUARIO ESCOLHE-->
-            <div class="/">
-                <label for="tipo-usuario" class="label1">Escolha o seu tipo de usuário</label><br><br>
+            <div class="container_tipo_usuario">
+                <label for="tipo-usuario" class="label1" style="color: <?= $cor ?> font-weight: <?= $bold ?>;" ><?= $mensagem; ?></label><br><br>
                 <select id="tipo-usuario"class="tipo-usuario" name="tipo_usuario">
                     <option value="candidato">Candidato</option>
                     <option value="empresa">Empresa</option>
@@ -177,6 +325,7 @@
     </div>
     <!-- JAVASCRIPT -->
     <script src="../../js/script.js"></script>
+    
 </form>
 </body>
 </html>
