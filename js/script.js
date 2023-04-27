@@ -3,29 +3,29 @@
 // ele captura tudo por ID no HTML e faz as alterações dentro do arquivo do CSS
 const tipoUsuarioSelect = document.getElementById("tipo-usuario");
 const empresaForm = document.getElementById("empresa-form");
-const candidatoForm = document.getElementById("candidato-form");
+const alunoForm = document.getElementById("aluno-form");
 
 
 // quando acesso a página ele já muda para a opção pré selecionada
 // se estiver pré selecionado empresa, ele exibe empresa.
 if(tipoUsuarioSelect.value === "empresa"){
   empresaForm.style.display = "block";
-  candidatoForm.style.display = "none";
-}else if(tipoUsuarioSelect.value === "candidato"){
+  alunoForm.style.display = "none";
+}else if(tipoUsuarioSelect.value === "aluno"){
   empresaForm.style.display = "none";
-  candidatoForm.style.display = "block";
+  alunoForm.style.display = "block";
 }
 
 
-// aqui ele de fato faz a alteração quando eu mudo entre empresa e candidato
+// aqui ele de fato faz a alteração quando eu mudo entre empresa e aluno
 tipoUsuarioSelect.addEventListener("change", function() {
   if (tipoUsuarioSelect.value === "empresa") {
     empresaForm.style.display = "block";
-    candidatoForm.style.display = "none";
+    alunoForm.style.display = "none";
 
-  } else if (tipoUsuarioSelect.value === "candidato") {
+  } else if (tipoUsuarioSelect.value === "aluno") {
     empresaForm.style.display = "none";
-    candidatoForm.style.display = "block";
+    alunoForm.style.display = "block";
 
   }
 });
@@ -51,6 +51,27 @@ const estadoSelect = document.getElementById('estado');
         });
       });
   });
+
+// codigo 2 IBGE
+const estadoSelect2 = document.getElementById('estado2');
+const cidadeSelect2 = document.getElementById('cidade2');
+
+estadoSelect2.addEventListener('change', () => {
+  const estado2 = estadoSelect2.value;
+  cidadeSelect2.innerHTML = '<option value="">Carregando...</option>';
+
+  fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado2}/municipios`)
+    .then(response => response.json())
+    .then(cidades => {
+      cidadeSelect2.innerHTML = '<option value="">Selecione uma cidade</option>';
+      cidades.forEach(cidade2 => {
+        const option = document.createElement('option');
+        option.value = cidade2.nome;
+        option.textContent = cidade2.nome;
+        cidadeSelect2.appendChild(option);
+      });
+    });
+}); 
   
 // o código abaixo é para adicionar uma máscara de CNPJ
 function fMasc(objeto, mascara) {
@@ -71,24 +92,3 @@ function fMasc(objeto, mascara) {
     cnpj = cnpj.replace(/(\d{4})(\d)/, "$1-$2");
     return cnpj;
   }
-  
-  
-const estadoSelect2 = document.getElementById('estado2');
-const cidadeSelect2 = document.getElementById('cidade2');
-
-estadoSelect2.addEventListener('change', () => {
-  const estado2 = estadoSelect2.value;
-  cidadeSelect2.innerHTML = '<option value="">Carregando...</option>';
-
-  fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado2}/municipios`)
-    .then(response => response.json())
-    .then(cidades => {
-      cidadeSelect2.innerHTML = '<option value="">Selecione uma cidade</option>';
-      cidades.forEach(cidade2 => {
-        const option = document.createElement('option');
-        option.value = cidade2.nome;
-        option.textContent = cidade2.nome;
-        cidadeSelect2.appendChild(option);
-      });
-    });
-});

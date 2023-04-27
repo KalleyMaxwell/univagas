@@ -16,7 +16,6 @@
     justify-content: center; /* centraliza verticalmente*/
     align-items: center; /* centraliza horizontalmente*/
     z-index: 2;
-
 }
 .logo{
     width: 20%;
@@ -28,7 +27,8 @@
     width: 20%;
     height: auto; /* mantém a proporção da imagem */  
     position: absolute;
-    top: 25%;
+    margin: auto;
+    margin-bottom: 25%;
 }
 .botao1{
     background-color: #007bff;
@@ -58,7 +58,7 @@
 .botao2:hover{
     background-color: #007bff;
 }
-h1{
+.h1-textos{
     font-family: 'Raleway', sans-serif;
     font-size: 14px;
     color:#001b39;
@@ -149,10 +149,12 @@ h4{
     cursor: pointer;
     border-radius: 8px;
     text-indent: 5%;
+    font-size: 12px;
 }
 select:focus{
     outline: none; /* opcional para remover a borda de destaque */
 }
+
 .input-text{
     width: 35vh;
     height: 5vh;
@@ -196,18 +198,50 @@ select:focus{
     border-radius: 8px;
 
 }
+/* configuraçoes para o mozilla firefox */
+@-moz-document url-prefix() {
 
+}
 /* ajuste de telas */
-@media screen and (max-height: 500px){
+@media screen and (max-width: 999px) {
+    .input-text{
+        width: 250px;
+        height: 30px;
+    }
+    .tipo-usuario{
+        width: 250px;
+        height: 30px;
+    }
+    .submit1{
+        width: 250px;
+    }
+    .botao1{
+        width: 250px;
+        height: 35px;
+    }
+    .botao2{
+        width: 250px;
+        height: 35px;
+    }
+}
+@media screen and (max-height: 600px){
     .logo{
         display: none;
+    }
+    .logo-login{
+        display: none
+    }
+    .label1{
+        text-align: left;
+        margin-bottom: 1%;
+        font-family: 'Raleway', sans-serif;
+        font-size: 12px;
+        color:#001b39;
     }
 }
 @media screen and (max-width: 500px){
     .botao1{
         background-color: #007bff;
-        width: 45vh;
-        height: 6vh;
         color: white;
         border: none;
         cursor: pointer;
@@ -217,8 +251,6 @@ select:focus{
     }
     .botao2{
         background-color: #014b99;
-        width: 45vh;
-        height: 6vh;
         color: white;
         border: none;
         cursor: pointer;

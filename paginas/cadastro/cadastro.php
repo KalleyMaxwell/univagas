@@ -18,10 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $estado = $_POST["estado"];
     $cidade = $_POST["cidade"];
 
-    //candidato
-    $nome_candidato = $_POST["nome_candidato"];
-    $email_candidato = $_POST["email_candidato"];
-    $senha_candidato = $_POST["senha_candidato"];
+    //aluno
+    $nome_aluno = $_POST["nome_aluno"];
+    $sobrenome_aluno = $_POST["sobrenome_aluno"];
+    $email_aluno = $_POST["email_aluno"];
+    $senha_aluno = $_POST["senha_aluno"];
     $estado2 = $_POST["estado2"];
     $cidade2 = $_POST["cidade2"];
     $curso = $_POST["curso"];
@@ -55,10 +56,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     );
 
                     // INSERIR BANCO DE DADOS
-                    $sql_insert = "INSERT INTO empresa (nome_empresa,email_empresa,senha_empresa,estado,cidade)
-                    VALUES ('$nome_empresa','$email_empresa','$senha_criptografada','$estado','$cidade')";
-                    $roda_sql = mysqli_query($conexao, $sql_insert);
-
+                    // o código abaixo cria prepara a query e cria um marcador de posição para os campos do DB, "?". 
+                    $sql_insert = "INSERT INTO empresa (nome_empresa,email_empresa,senha_empresa,cidade,estado)
+                    VALUES (?,?,?,?,?)";
+                
+                    $stmt = mysqli_prepare($conexao, $sql_insert);
+                    // o código abaixo associa o marcador de posição do código acima com as variaveis do insert,
+                    // usamos "s" para mostrar que é uma string
+                    mysqli_stmt_bind_param($stmt, "sssss", $nome_empresa, $email_empresa, $senha_criptografada, $cidade, $estado);
+                    $roda_sql = mysqli_stmt_execute($stmt);
+ 
                     header("Location: carregando.html");
                 } else {
                     $cor = "red;";
@@ -75,26 +82,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $bold = "bold;";
             $mensagem = "Por favor, preencha todos os campos."; // Exibe uma mensagem de erro
         }
-    } elseif ($tipo_usuario == "candidato") {
-        //formulario de envio do candidato
+    } elseif ($tipo_usuario == "aluno") {
+        //formulario de envio do aluno
 
         // Verifica se todos os campos foram preenchidos
         if (
-            !empty($nome_candidato) &&
-            !empty($email_candidato) &&
-            !empty($senha_candidato) &&
+            !empty($nome_aluno) &&
+            !empty($sobrenome_aluno) &&
+            !empty($email_aluno) &&
+            !empty($senha_aluno) &&
             !empty($estado2) &&
             !empty($cidade2) &&
             !empty($curso) &&
             !empty($matricula)
         ) {
             // 1º Verifica se o endereço de e-mail é válido
-            if (filter_var($email_candidato, FILTER_VALIDATE_EMAIL)) {
+            if (filter_var($email_aluno, FILTER_VALIDATE_EMAIL)) {
                 // 2º verifica se a senha é forte ou não
                 if (
                     preg_match(
                         '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/',
-                        $senha_candidato
+                        $senha_aluno
                     )
                 ) {
                     //3º por ultimo, verificamos se a matricula está com somente números
@@ -108,22 +116,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             "cost" => 12, // ajuste de complexidade
                         ];
                         $senha_criptografada2 = password_hash(
-                            $senha_candidato,
+                            $senha_aluno,
                             PASSWORD_BCRYPT,
                             $ajuste2
                         );
 
                         // INSERIR BANCO DE DADOS
-                        $sql_insert = "INSERT INTO candidato (matricula,curso,nome_candidato,email_candidato,senha_candidato,estado,cidade)
-                            VALUES ('$matricula','$curso','$nome_candidato','$email_candidato','$senha_criptografada2','$estado2','$cidade2')";
-                        $roda_sql = mysqli_query($conexao, $sql_insert);
-
+                        // o código abaixo cria prepara a query e cria um marcador de posição para os campos do DB, "?". 
+                        $sql_insert = "INSERT INTO aluno (matricula, curso, nome_aluno, sobrenome_aluno,email_aluno, senha_aluno, estado, cidade)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                        $stmt = mysqli_prepare($conexao, $sql_insert);
+                        // o código abaixo associa o marcador de posição do código acima com as variaveis do insert,
+                        // usamos "s" para mostrar que é uma string
+                        mysqli_stmt_bind_param($stmt, "ssssssss", $matricula, $curso, $nome_aluno, $sobrenome_aluno,$email_aluno, $senha_criptografada2, $estado2, $cidade2);
+                        $roda_sql = mysqli_stmt_execute($stmt);
+    
                         header("Location: carregando.html");
                     } else {
                         $cor = "red;";
                         $bold = "bold;";
-                        $mensagem =
-                            "Informe um número <br> de matrícula válido."; // Exibe uma mensagem de erro
+                        $mensagem = "Informe um número <br> de matrícula válido."; // Exibe uma mensagem de erro
                     }
                 } else {
                     $cor = "red;";
@@ -154,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="../../css/estilo.css" media="screen"/>
-
+    <link rel="stylesheet" type="text/css" href="../../css/normalize.css" media="screen"/>
     
     <!-- FONTES DAS LETRAS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -169,17 +181,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <form action="<?=$_SERVER['PHP_SELF'];?>" method="POST">
     <div class="container-form-elements">
         <div class="body-form">
-            <img src="../../imagens/logo.png" class="logo">
+        <img src="../../imagens/logo.png" class="logo">
             <div class="espaco"></div>
 
             <!-- TIPO DE PERFIL QUE MUDA O FORMULARIO DE ACORDO COM O QUE O USUARIO ESCOLHE-->
+   
             <div class="container_tipo_usuario">
                 <label for="tipo-usuario" class="label1" style="color: <?= $cor ?> font-weight: <?= $bold ?>;" ><?= $mensagem; ?></label><br><br>
                 <select id="tipo-usuario"class="tipo-usuario" name="tipo_usuario">
-                    <option value="candidato">Candidato</option>
+                    <option value="aluno">Aluno</option>
                     <option value="empresa">Empresa</option>
                 </select><br><br>
             </div>
+  
             
             <!-- Opções de formulário para a empresa -->
             <div id="empresa-form">
@@ -230,12 +244,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
 
-            <!-- Opções de formulário para o candidato -->
-            <div id="candidato-form">
-                <input type="text" class="input-text" name="nome_candidato" placeholder="Nome do candidato"><br><br>
-                <input type="text" class="input-text" name="matricula" placeholder="ID da Matricula do candidato"><br><br>
-                <input type="text" class="input-text" name="email_candidato" placeholder="E-mail do candidato"><br><br>
-                <input type="password" class="input-text" name="senha_candidato" placeholder="Senha"><br><br>
+            <!-- Opções de formulário para o aluno -->
+            <div id="aluno-form">
+                <input type="text" class="input-text" name="nome_aluno" placeholder="Nome do aluno">
+                <br>
+                <br>
+                <input type="text" class="input-text" name="sobrenome_aluno" placeholder="Sobrenome do aluno">
+                <br>
+                <br>
+                <input type="text" class="input-text" name="matricula" placeholder="ID da Matricula do aluno">
+                <br>
+                <br>
+                <input type="text" class="input-text" name="email_aluno" placeholder="E-mail do aluno">
+                <br>
+                <br>
+                <input type="password" class="input-text" name="senha_aluno" placeholder="Senha">
+                <br>
+                <br>
             
 
                 <!-- SELECIONA O ESTADO-->

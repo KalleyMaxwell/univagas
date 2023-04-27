@@ -6,7 +6,7 @@ session_set_cookie_params(86400);
 session_start();
 
 // a variavel abaixo usarei dentro do <h1></h1>, para exibir mensagens de senha incorreta e outras
-$erro = "Faça seu login no perfil de empresa!";
+$erro = "Faça seu login no perfil de aluno!";
 
 // empresa
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,11 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     do endereço de e-mail, o que poderia impedir a autenticação
     correta do usuário.
     */
-    $email_empresa = trim($_POST["email_empresa"]);
-    $senha_empresa = trim($_POST["senha_empresa"]);
+    $email_aluno = trim($_POST["email_aluno"]);
+    $senha_aluno = trim($_POST["senha_aluno"]);
 
     // Verifica se os campos não estão vazios
-    if (empty($email_empresa) && empty($senha_empresa)) {
+    if (empty($email_aluno) && empty($senha_aluno)) {
         $erro = "ERRO! Preencha todos os campos.";
     } else {
         // Consulta o banco de dados para verificar se o email existe
@@ -32,32 +32,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         porém faz isso, de uma forma mais segura*/
 
 
-        // o código abaixo cria prepara a query e cria um marcador de posição para o email_empresa, "?". 
-        $stmt = $conexao->prepare("SELECT id_empresa, senha_empresa FROM empresa WHERE email_empresa = ?");
-        // o código abaixo associa o marcador de posição do código acima a variavel de email,
+        // o código abaixo cria prepara a query e cria um marcador de posição para o email_aluno, "?". 
+        $stmt = $conexao->prepare("SELECT id_aluno, senha_aluno FROM aluno WHERE email_aluno = ?");
+        // o código abaixo associa o marcador de posição do código acima, a variavel de email.
         // usamos "s" para mostrar que é uma string
-        $stmt->bind_param("s", $email_empresa);
+        $stmt->bind_param("s", $email_aluno);
         // o código abaixo, executa a query e faz a consulta
         $stmt->execute();
         // armazenamos o resultado em result 
         $result = $stmt->get_result();
-
+        //se o numero de resultados for 1, blz, existe esse cadastro
         if ($result->num_rows === 1) {
             $row = $result->fetch_assoc();
 
             // verifica se a senha digitada bate com a senha criptografada no banco de dados
-            if (password_verify($senha_empresa, $row["senha_empresa"])) {
+            if (password_verify($senha_aluno, $row["senha_aluno"])) {
                 // Senha está correta
                 $_SESSION["logged_in"] = true;
 
                 //pegar o id para usar na sessao
-                $id_empresa = $row["id_empresa"];
+                $id_aluno = $row["id_aluno"];
 
                 // importante, usaremos isso em outras páginas quando logado
-                $_SESSION["id_sessao"] = $id_empresa;
+                $_SESSION["id_sessao"] = $id_aluno;
 
                 header(
-                    "Location: ../perfil/perfil_empresa.php?id=" . $id_empresa
+                    "Location: ../perfil/perfil_aluno.php?id=" . $id_aluno
                 );
                 exit();
             } else {
@@ -71,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -100,10 +101,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="../../imagens/logo.png" class="logo-login">
 
             <h1 class="h1-textos"><?php echo $erro; ?></h1><br>
-            <!-- Opções de formulário para o candidato -->
-            <div id="candidato-form">
-                <input type="text" class="input-text" name="email_empresa" placeholder="E-mail da empresa"><br><br>
-                <input type="password" class="input-text" name="senha_empresa" placeholder="Senha"><br><br>
+            <!-- Opções de formulário para o aluno -->
+            <div id="aluno-form">
+                <input type="text" class="input-text" name="email_aluno" placeholder="E-mail do aluno"><br><br>
+                <input type="password" class="input-text" name="senha_aluno" placeholder="Senha"><br><br>
             </div>
 
 
@@ -114,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- IMAGENS DE FUNDO -->
         <div class="body-text">
-            <img src="../../imagens/empresa.png" class="imagem-fundo3">
+            <img src="../../imagens/candidato.png" class="imagem-fundo3">
         </div>
 
     </div>
