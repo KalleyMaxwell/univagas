@@ -1,0 +1,298 @@
+*{
+    margin:0;
+}
+body{
+  background-color: rgb(255, 255, 255);
+  overflow-x: hidden;
+}
+/* todo o código abaixo é referente a barra superior de navegaão com os links*/
+nav {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000a15;
+    color: white;
+    height: 50px;
+    padding: 0 50px;
+    z-index: 2;
+  }
+  
+  .nav-links {
+    font-family: 'Raleway', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-left: auto;
+  }
+
+  .nav-links li {
+    list-style: none;
+  }
+  
+  .nav-links a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .nav-links a:hover {
+    color: rgb(139, 203, 255);
+  }
+  .logo-barra-superior{
+    width: 14%; /* define a largura da imagem em 300 pixels */
+    height: auto; /* mantém a proporção da imagem */  
+  }
+
+  .burger {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .burger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px;
+    transition: all 0.3s ease;
+  }
+
+  /* ---------------------------------------------------------- */
+  /* foto de perfil e capa*/
+  .foto-capa {
+    background-image: linear-gradient(to left, #011832, #013570);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+    position: relative; /* adiciona position relative para posicionar a foto de perfil */
+  }
+  .foto-perfil{
+    position: absolute;
+    bottom: -30%; /* metade da altura da foto de perfil */
+    left: 120px; /* metade da largura da foto de perfil */
+    height: 125px;
+    width: 125px;
+    border-radius: 50%;
+    background-color: rgb(0, 0, 0);
+  }
+  .container-perfil{
+    height: auto;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+  }
+  .container-block{
+    display: block;
+    width: auto;
+    height: auto;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adicionando sombra */
+  }
+  /* barra esquerda com todos os dados */
+  /* a barra 1 nao possui display flex, pois o mesmo impossibilita <br> no mozilla */
+  .barra-esquerda-1{
+    height: auto;
+    width: 50vh;
+    background-color: white;
+    flex-direction: column;
+    justify-content: center; /* centraliza verticalmente*/
+    align-items: center; /* centraliza horizontalmente*/
+    text-align: center;
+  }
+  .barra-esquerda-2{
+    height: auto;
+    width: 50vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centraliza verticalmente*/
+    align-items: center; /* centraliza horizontalmente*/
+    text-align: center;
+  }
+
+  .botao{
+    background-color: #007bff;
+    width: 28vh;
+    height: 4vh;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+  .botao:hover{
+    background-color: #014b99;
+  }
+  .nome-user{
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    position: relative;
+  }
+  .dados-user{
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    position: relative;
+  }
+  .link-redes-sociais{
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    position: relative;
+  }
+  .link-redes-sociais:hover{
+    font-weight: bold;
+    color:#007bff;
+  }
+  .lista-centralizada {
+    list-style: disc; /* Define o estilo de marcadores da lista (ponto preenchido) */
+    text-align: left; /* Centraliza a lista à esquerda */
+    padding-left: 0; /* Remove o espaçamento padrão do lado esquerdo da lista */
+  }
+  .lista-centralizada li {
+    list-style-type: none; /* Remove os marcadores */
+
+  }
+  .li-dados{
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+  }
+  .sobre-mim{
+    background-color: transparent;
+    width: 200px;
+    height: auto;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+  }
+  /* PORTFÓLIO */
+  .container-portfolio{
+    height: 50vh;
+    width: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
+    background-color: rgb(196, 196, 196);
+    display: flex;
+  }
+  /* rodape da pagina */
+  .rodape{
+    background-image: linear-gradient(to left, #011832, #013570);
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+    position: relative; /* adiciona position relative para posicionar a foto de perfil */
+  }
+
+  /* ---------------------------------------------------------------------- */
+  /* ---------------------------------------------------------------------- */
+  /* ---------------------------------------------------------------------- */
+  /* ---------------------------------------------------------------------- */
+  /* ajustes mobile */
+  @media screen and (max-width: 999px) {
+    .nav-links {
+      position: absolute;
+      right: 0px;
+      height: 92vh;
+      top: 50px;
+      background-color: #000a15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 40%;
+      transform: translateX(100%);
+      transition: transform 0.5s ease-in;
+      z-index: 2;
+      /* para nao transbordar no mobile, precisa ficar em fixed*/
+      position: fixed;
+    }
+    .container-portfolio{
+      margin-left: 0%;
+      margin-top: 3%;
+      height: 50vh;
+      width: 100%;
+      background-color: rgb(196, 196, 196);
+      display: flex;
+    }
+    .container-perfil{
+      display: block;
+    }
+    .rodape{
+      margin-top: 3%;
+    }
+    .burger {
+      display: block;
+    }
+    .logo-barra-superior{
+      width: 25%; /* define a largura da imagem em 300 pixels */
+      height: auto; /* mantém a proporção da imagem */ 
+      margin-left: 0px; 
+    }
+    
+    .foto-perfil{
+      position: absolute;
+      bottom: -30%; /* metade da altura da foto de perfil */
+      left: 50%; /* metade da largura da foto de perfil */
+      transform: translateX(-50%); /* Move a metade da largura para a esquerda */
+      height: 125px;
+      width: 125px;
+      border-radius: 50%;
+    }
+    .barra-esquerda-1{
+      height: auto;
+      width: 100%;
+      background-color: white;
+    }
+    .barra-esquerda-2{
+      height: auto;
+      width: 100%;
+      background-color: white;
+    }
+    .espaco{
+      width: 100%;
+    }
+    .botao{
+      background-color: #007bff;
+      width: 250px;
+      height: 5vh;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+  }
+  @media screen and (max-height: 500px) {
+    .botao{
+      background-color: #007bff;
+      width: 250px;
+      height: 7vh;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      border-radius: 8px;
+    }
+  }
+
+  
+  .nav-active {
+    transform: translateX(0%);
+  }
+  
+  .toggle .line:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+  
+  .toggle .line:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .toggle .line:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+  
